@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rails_password
+      MYSQL_DATABASE: rails_db
+      MYSQL_USER: rails_user
+      MYSQL_PASSWORD: rails_user
+  backend:
+    build: ./quiz-app-backend
+    command: bash -c "rm -f tmp/pids/server.pid && rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment: 
+      - DEVISE_SECRET_KEY=c097f8bfefb919070caf41e034b90921b21e0eb4e8629dcc87ba9c1110c26de0509a3b4364eeba2e1936b616736a43b4f888234a6496e2ba50e1798acc158847
+    volumes:
+      - ./backend:/rails-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
