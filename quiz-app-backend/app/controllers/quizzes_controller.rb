@@ -4,7 +4,7 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes
   def index
-    @quizzes = Quiz.all
+    @quizzes = Quiz.all.select { |q| q.user == current_user}
 
     render json: @quizzes
   end

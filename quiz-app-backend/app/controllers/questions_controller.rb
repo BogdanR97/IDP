@@ -4,9 +4,11 @@ class QuestionsController < ApplicationController
 
   # GET /questions
   def index
-    @questions = Question.all
-
-    render json: @questions
+    if current_user.admin
+      @questions = Question.all
+      render json: @questions
+    else
+      render status: :unauthorized
   end
 
   # GET /questions/1
