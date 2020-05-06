@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quiz-App</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="addUser" class="flex-center flex-column">
+        <h1>Quiz-App: New User</h1>
+        <form>
+          <input
+            type="email"
+            name="userEmail"
+            id="userEmail"
+            placeholder="User Email"
+          />
+          <input
+            type="text"
+            name="userName"
+            id="userName"
+            placeholder="Username"
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+          />
+          <button
+            type="submit"
+            class="btn"
+            id="addUserBtn"
+            onclick="addUser(event)"
+            disabled
+          >
+            Add User
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="addUser.js"></script>
+  </body>
+</html>

@@ -1,10 +1,13 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
+  before_action :is_admin
+  before_action :authenticate_user
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user, except: [:create]
+  
+  include Prometheus::Controller
 
   # GET /users
   def index
-    @users = User.all
+    @users = User.all.select { |user| user.admin == false }
 
     render json: @users
   end
@@ -18,8 +21,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
+    GAUGE_USER
+      .set(1, labels: {users: @user.username})
+
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -41,12 +47,17 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def is_admin
+      render status: :unauthorized unless current_user.admin
+    end
+
     def set_user
       @user = User.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.fetch(:user, {})
+      {username: params[:username], email: params[:email], password: params[:password], admin: false }
     end
 end

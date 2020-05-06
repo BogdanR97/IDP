@@ -1,8 +1,8 @@
-const highScores = [];
+const users = [];
 
 const jwtToken = 'Bearer ' + localStorage.getItem("jwt");
 
-fetch('http://127.0.0.1:3000/quizzes', {
+fetch('http://127.0.0.1:3000/api/users', {
   method: 'GET',
   headers: {
       'Content-Type': 'application/json',
@@ -12,17 +12,17 @@ fetch('http://127.0.0.1:3000/quizzes', {
 .then(res => {
   return res.json();
 })
-.then(loadedQuizzes => {
-  loadedQuizzes.forEach(quiz => {
-    const score = { ID: quiz.id, Score: quiz.score };
-    highScores.push(score);
+.then(loadedUsers => {
+  loadedUsers.forEach(user => {
+    const userData = { Username: user.username, Email: user.email };
+    users.push(userData);
   });
 
-  console.log(highScores)
+  console.log(users)
 
   var col = [];
-  for (var i = 0; i < highScores.length; i++) {
-    for (var key in highScores[i]) {
+  for (var i = 0; i < users.length; i++) {
+    for (var key in users[i]) {
       if (col.indexOf(key) === -1) {
         col.push(key);
       }
@@ -39,16 +39,15 @@ fetch('http://127.0.0.1:3000/quizzes', {
   }
 
 
-  for (var i = 0; i < highScores.length; i++) {
-
+  for (var i = 0; i < users.length; i++) {
     tr = table.insertRow(-1);
 
     for (var j = 0; j < col.length; j++) {
       var tabCell = tr.insertCell(-1);
-      tabCell.innerHTML = highScores[i][col[j]];
+      tabCell.innerHTML = users[i][col[j]];
     }
   }
 
-  var divContainer = document.getElementById("highScores");
+  var divContainer = document.getElementById("users");
   divContainer.appendChild(table);
 })

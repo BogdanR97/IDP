@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quick Quiz</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="home" class="flex-center flex-column">
+        <h1>Quiz-App: Admin Panel</h1>
+        <a class="btn" href="/users.html">Users</a>
+        <a class="btn" href="/addUser.html">Add User</a>
+        <a class="btn" href="/questions.html">Questions</a>
+        <a class="btn" href="/addQuestion.html">Add Question</a>
+        <button
+            type="submit"
+            class="btn"
+            id="logoutBtn"
+            onclick="logoutUser(event)"
+          >
+            Logout
+        </button>
+      </div>
+    </div>
+    <script src="redirect.js"></script>
+    <script src="logout.js"></script>
+  </body>
+</html>

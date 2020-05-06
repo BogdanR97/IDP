@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quiz-App</title>
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="addQuestion" class="flex-center flex-column">
+        <h1>Quiz-App: New User</h1>
+        <form>
+          <input
+            type="text"
+            name="questionBody"
+            id="questionBody"
+            placeholder="Question Body"
+          />
+          <input
+            type="text"
+            name="correctAns"
+            id="correctAns"
+            placeholder="Correct Answer"
+          />
+          <input
+            type="text"
+            name="wrongAns1"
+            id="wrongAns1"
+            placeholder="Wrong Answer 1"
+          />
+          <input
+            type="text"
+            name="wrongAns2"
+            id="wrongAns2"
+            placeholder="Wrong Answer 2"
+          />
+          <input
+            type="text"
+            name="category"
+            id="category"
+            placeholder="Question Category"
+          />
+          <button
+            type="submit"
+            class="btn"
+            id="addQuestionBtn"
+            onclick="addQuestion(event)"
+          >
+            Add Question
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="addQuestion.js"></script>
+  </body>
+</html>

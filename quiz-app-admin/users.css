@@ -1,9 +1,9 @@
-.high-score {
+.users {
   font-size: 2.8rem;
   margin-bottom: 0.5rem;
 }
 
-.high-score:hover {
+.users:hover {
   transform: scale(1.025);
 }
 

@@ -2,6 +2,8 @@ class QuizzesController < ApplicationController
   before_action :set_quiz, only: [:show, :update, :destroy]
   before_action :authenticate_user
 
+  include Prometheus::Controller
+
   # GET /quizzes
   def index
     @quizzes = Quiz.all.select { |q| q.user == current_user}
@@ -26,6 +28,9 @@ class QuizzesController < ApplicationController
 
     @quiz.question_ids = q_ids
     @quiz.user = current_user
+
+    GAUGE_QUIZ
+      .set(1, labels: {quizzes: current_user.username})
 
     if @quiz.save
       render json: @quiz, status: :created, serializer: QuizSerializer

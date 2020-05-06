@@ -1,14 +1,15 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :update, :destroy]
+  before_action :is_admin
   before_action :authenticate_user
+  before_action :set_question, only: [:show, :update, :destroy]
+  
 
   # GET /questions
   def index
-    if current_user.admin
-      @questions = Question.all
-      render json: @questions
-    else
-      render status: :unauthorized
+    @questions = Question.all
+
+    render json: @questions
+    
   end
 
   # GET /questions/1
@@ -42,6 +43,10 @@ class QuestionsController < ApplicationController
   end
 
   private
+    def is_admin
+      render status: :unauthorized unless current_user.admin
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
@@ -49,6 +54,7 @@ class QuestionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params.fetch(:question, {})
+      {q_text: params[:q_text], correct_ans: params[:correct_ans], wrong_ans_1: params[:wrong_ans_1],
+      wrong_ans_2: params[:wrong_ans_2], category: params[:category]}
     end
 end

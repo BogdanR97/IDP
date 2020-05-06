@@ -9,6 +9,7 @@ services:
       MYSQL_DATABASE: rails_db
       MYSQL_USER: rails_user
       MYSQL_PASSWORD: rails_user
+
   backend:
     build: ./quiz-app-backend
     command: bash -c "rm -f tmp/pids/server.pid && rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -20,9 +21,26 @@ services:
       - "3000:3000"
     depends_on:
       - db
+
   client:
     build: ./quiz-app-client
     ports:
       - "8080:80"
     depends_on: 
+      - backend
+
+  admin:
+    build: ./quiz-app-admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+  monitor:
+    build: ./quiz-app-monitoring
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
       - backend

@@ -44,5 +44,8 @@ module QuizAppBackend
           )
       end
     end
+
+    config.eager_load_paths += %W(#{config.root}/lib)
+
   end
 end

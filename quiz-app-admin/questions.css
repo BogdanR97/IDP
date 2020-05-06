@@ -1,0 +1,40 @@
+.questions {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .questions:hover {
+    transform: scale(1.025);
+  }
+  
+  table {
+    width: 25%;
+    border-collapse: collapse;
+  }
+  
+  th {
+    font-size: 1.8rem;
+    padding: 1rem 0;
+    width: 20rem;
+    text-align: center;
+    border: 0.1rem solid #56a5eb;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: #56a5eb;
+    background-color: white;
+  }
+  
+  tr td{
+    font-size: 1.8rem;
+    padding: 1rem 0;
+    width: 20rem;
+    text-align: center;
+    border: 0.1rem solid #56a5eb;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #56a5eb;
+    background-color: white;
+  }
+  
