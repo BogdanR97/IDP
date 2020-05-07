@@ -11,8 +11,9 @@ services:
       MYSQL_PASSWORD: rails_user
 
   backend:
+    image: 127.0.0.1:5000/idp_backend:latest
     build: ./quiz-app-backend
-    command: bash -c "rm -f tmp/pids/server.pid && rails db:migrate && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && rails db:migrate && rails db:seed && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment: 
       - DEVISE_SECRET_KEY=c097f8bfefb919070caf41e034b90921b21e0eb4e8629dcc87ba9c1110c26de0509a3b4364eeba2e1936b616736a43b4f888234a6496e2ba50e1798acc158847
     volumes:
@@ -23,6 +24,7 @@ services:
       - db
 
   client:
+    image: 127.0.0.1:5000/idp_client:latest
     build: ./quiz-app-client
     ports:
       - "8080:80"
@@ -30,6 +32,7 @@ services:
       - backend
 
   admin:
+    image: 127.0.0.1:5000/idp_admin:latest
     build: ./quiz-app-admin
     ports:
       - "8081:80"
@@ -37,6 +40,7 @@ services:
       - backend
 
   monitor:
+    image: 127.0.0.1:5000/idp_monitor:latest
     build: ./quiz-app-monitoring
     command:
       - --config.file=/etc/prometheus/prometheus.yml

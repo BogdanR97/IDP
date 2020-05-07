@@ -29,8 +29,11 @@ class QuizzesController < ApplicationController
     @quiz.question_ids = q_ids
     @quiz.user = current_user
 
-    GAUGE_QUIZ
-      .set(1, labels: {quizzes: current_user.username})
+    if GAUGE_QUIZ.get(labels: {quizzes: current_user.username}) > 0
+      GAUGE_QUIZ.increment(labels: {quizzes: current_user.username})
+    else
+      GAUGE_QUIZ.set(1, labels: {quizzes: current_user.username})
+    end
 
     if @quiz.save
       render json: @quiz, status: :created, serializer: QuizSerializer
